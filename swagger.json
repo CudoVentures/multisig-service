@@ -690,15 +690,12 @@
           "required": true
         },
         "responses": {
-          "200": {
+          "201": {
             "description": "successful operation",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Signature"
-                  }
+                  "$ref": "#/components/schemas/Signature"
                 }
               }
             }
