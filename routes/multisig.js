@@ -46,7 +46,7 @@ const putMultisig = async (req, res, next) => {
   }
 }
 
-const fetchTransactions = async (req, res, next) => {
+const fetchMultisigTransactions = async (req, res, next) => {
   try {
     const { address } = req.params
 
@@ -63,6 +63,6 @@ router.post('/', postMultisig)
 router.get('/:address', getMultisig)
 router.put('/:address', putMultisig)
 
-router.get('/:address/transactions', fetchTransactions)
+router.get('/:address/transactions', fetchMultisigTransactions)
 
 module.exports = router

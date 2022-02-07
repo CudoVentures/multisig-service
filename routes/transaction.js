@@ -28,7 +28,7 @@ const putTransaction = async (req, res, next) => {
   }
 }
 
-const fetchSignatures = async (req, res, next) => {
+const fetchTransactionSignatures = async (req, res, next) => {
   try {
     const { id } = req.params
 
@@ -57,7 +57,7 @@ router.post('/', postTransaction)
 
 router.put('/:id', putTransaction)
 
-router.get('/:id/signature', fetchSignatures)
+router.get('/:id/signature', fetchTransactionSignatures)
 router.post('/:id/signature', postSignature)
 
 module.exports = router
