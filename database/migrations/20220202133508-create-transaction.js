@@ -53,7 +53,7 @@ module.exports = {
       status: {
         allowNull: false,
         type: Sequelize.ENUM(
-          TRANSACTION_STATUS.P,
+          TRANSACTION_STATUS.PENDING,
           TRANSACTION_STATUS.EXECUTED,
           TRANSACTION_STATUS.REJECTED
         )
