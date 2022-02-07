@@ -49,3 +49,4 @@ npm run start:dev
 1. Cleanup **swagger.json** from template code (and potentially rename to **openApi.json**)
 2. Setup and use **.env** for configuration settings (database username and password)
 3. Update **cors** policy to include only the domain of our **front-end**
+4. Add indexes to the appropriate columns in the db
