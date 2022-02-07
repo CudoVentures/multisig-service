@@ -16,12 +16,6 @@
 npm install
 ```
 
-2. Run **Sequelize** migrations to create the tables
-
-```console
-npm run migrate
-```
-
 ## Running the app
 
 1. in **_/database/config.json_** set the configuration of your database
@@ -38,7 +32,13 @@ npm run migrate
 }
 ```
 
-2. Start the server
+2. Run **Sequelize** migrations to create the tables
+
+```console
+npm run migrate
+```
+
+3. Start the server
 
 ```console
 npm run start:dev
