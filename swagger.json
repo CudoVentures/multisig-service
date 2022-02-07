@@ -504,7 +504,7 @@
           },
           "status": {
             "type": "string",
-            "enum": ["pending", "executed", "rejected"]
+            "enum": ["Pending", "Successful", "Rejected", "Signed"]
           },
           "sequence": {
             "type": "integer",
