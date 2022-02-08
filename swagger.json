@@ -60,6 +60,16 @@
                 }
               }
             }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -99,7 +109,23 @@
           },
           "404": {
             "description": "Address not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -148,7 +174,23 @@
           },
           "404": {
             "description": "Address not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -191,7 +233,23 @@
           },
           "404": {
             "description": "Address not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -262,7 +320,23 @@
           },
           "404": {
             "description": "Transaction not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -311,7 +385,23 @@
           },
           "404": {
             "description": "Transaction not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -354,7 +444,23 @@
           },
           "404": {
             "description": "Transaction not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       },
@@ -403,7 +509,23 @@
           },
           "404": {
             "description": "Transaction not found",
-            "content": {}
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
           }
         }
       }
@@ -424,17 +546,18 @@
             "example": "My Wallet"
           },
           "pubkey": {
-            "type": "string"
+            "type": "string",
+            "example": "{\"type\":\"tendermint/PubKeyMultisigThreshold\",\"value\":{\"threshold\":\"2\",\"pubkeys\":[{\"type\":\"tendermint/PubKeySecp256k1\",\"value\":\"A/lfKOvdj9KHBDYE8JCiPKa/az3C/nVEE/LosAZCDffo\"},{\"type\":\"tendermint/PubKeySecp256k1\",\"value\":\"A0hdpFvwAr1F87e37uKDXfWBNJaRGIIxZOHb9EW5Bwu7\"}]}}"
           },
           "owners": {
             "type": "array",
             "items": {
-              "type": "string",
-              "example": [
-                "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0",
-                "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0"
-              ]
-            }
+              "type": "string"
+            },
+            "example": [
+              "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0",
+              "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0"
+            ]
           },
           "createdAt": {
             "type": "string",
@@ -543,6 +666,14 @@
             "format": "int32"
           },
           "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
             "type": "string"
           }
         }
