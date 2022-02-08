@@ -1,0 +1,684 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "MultiSig Service",
+    "description": "This is a simple Express server for storing data about multisigs on the CUDOS network",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "email": "apiteam@swagger.io"
+    },
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "1.0.0"
+  },
+  "externalDocs": {
+    "description": "Find out more about Swagger",
+    "url": "http://swagger.io"
+  },
+  "servers": [
+    {
+      "url": "/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "multisig",
+      "description": "Everything about a multisig object"
+    },
+    {
+      "name": "transaction",
+      "description": "Everything about a transaction of a certain multisig"
+    }
+  ],
+  "paths": {
+    "/multisig": {
+      "post": {
+        "tags": ["multisig"],
+        "summary": "Create multisig",
+        "description": "Creates a single multisig",
+        "operationId": "postMultisig",
+        "requestBody": {
+          "description": "Multisig object that needs to be added to the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Multisig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Multisig"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/multisig/{address}": {
+      "get": {
+        "tags": ["multisig"],
+        "summary": "Get multisig by address",
+        "description": "Returns a single multisig",
+        "operationId": "getMultisig",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "description": "address of multisig to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Multisig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid address supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["multisig"],
+        "summary": "Update multisig by address",
+        "description": "Updates a single multisig",
+        "operationId": "putMultisig",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "description": "address of multisig to update",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Properties of the multisig object that needs to be updated in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Multisig"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Multisig"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid address supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/multisig/{address}/transactions": {
+      "get": {
+        "tags": ["multisig"],
+        "summary": "Fetch transactions of given multisig",
+        "description": "Returns all transactions of a multisig",
+        "operationId": "fetchTransactions",
+        "parameters": [
+          {
+            "name": "address",
+            "in": "path",
+            "description": "address of multisig to return",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Transaction"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid address supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Address not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction": {
+      "post": {
+        "tags": ["transaction"],
+        "summary": "Create transaction",
+        "description": "Creates a single transaction",
+        "operationId": "postTransaction",
+        "requestBody": {
+          "description": "Transaction object that needs to be added to the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/{id}": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "Get transaction by id",
+        "description": "Get transactions by id",
+        "operationId": "getTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of a transaction",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": ["transaction"],
+        "summary": "Update transaction by id",
+        "description": "Update transactions by id",
+        "operationId": "putTransaction",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of a transaction",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Transaction object that needs to be updated in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Transaction"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Transaction"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/transaction/{id}/signature": {
+      "get": {
+        "tags": ["transaction"],
+        "summary": "Get all signatures of a transaction by id",
+        "description": "Get all signatures of a transaction by id",
+        "operationId": "fetchSignatures",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of a transaction",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Signature"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["transaction"],
+        "summary": "Create a signature for a transaction by id",
+        "description": "Create a signature for a transaction by id",
+        "operationId": "postSignature",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id of a transaction",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "int64"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Transaction object that needs to be updated in the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Signature"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Signature"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid id supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "Transaction not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Multisig": {
+        "required": ["address", "name", "pubkey", "owners"],
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string",
+            "example": "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0"
+          },
+          "name": {
+            "type": "string",
+            "example": "My Wallet"
+          },
+          "pubkey": {
+            "type": "string",
+            "example": "{\"type\":\"tendermint/PubKeyMultisigThreshold\",\"value\":{\"threshold\":\"2\",\"pubkeys\":[{\"type\":\"tendermint/PubKeySecp256k1\",\"value\":\"A/lfKOvdj9KHBDYE8JCiPKa/az3C/nVEE/LosAZCDffo\"},{\"type\":\"tendermint/PubKeySecp256k1\",\"value\":\"A0hdpFvwAr1F87e37uKDXfWBNJaRGIIxZOHb9EW5Bwu7\"}]}}"
+          },
+          "owners": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": [
+              "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0",
+              "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0"
+            ]
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Transaction": {
+        "required": [
+          "accountNumber",
+          "chainId",
+          "fee",
+          "msgs",
+          "multisigAddress",
+          "hasSigned",
+          "status",
+          "sequence",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "accountNumber": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "hash": {
+            "type": "string",
+            "example": "A81AA1979C0EB21BB197DE7400B693C71521763BA911EDCE7F37878C6B1CAACA",
+            "nullable": true
+          },
+          "chainId": {
+            "type": "string",
+            "example": "cudos-testnet-public-2"
+          },
+          "fee": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "array"
+              },
+              "gas": {
+                "type": "string",
+                "example": "180000"
+              }
+            }
+          },
+          "memo": {
+            "type": "string",
+            "example": "Here's some CUDOS"
+          },
+          "msgs": {
+            "type": "array"
+          },
+          "multisigAddress": {
+            "type": "string",
+            "example": "cudos1ahrf2v2kdgf74mwyssxqwsmty8hq4h3znu9pc0"
+          },
+          "hasSigned": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status": {
+            "type": "string",
+            "enum": ["Pending", "Successful", "Rejected", "Signed"]
+          },
+          "sequence": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["send", "receive"]
+          },
+          "executionTime": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "Signature": {
+        "type": "object",
+        "properties": {
+          "signature": {
+            "type": "string"
+          },
+          "bodyBytes": {
+            "type": "string"
+          },
+          "transactionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "address": {
+            "type": "string"
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "securitySchemes": {}
+  }
+}
