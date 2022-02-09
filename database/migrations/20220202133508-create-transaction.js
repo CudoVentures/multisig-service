@@ -29,7 +29,7 @@ module.exports = {
         allowNull: false
       },
       msgs: {
-        type: Sequelize.JSONB,
+        type: Sequelize.ARRAY(Sequelize.JSONB),
         allowNull: false
       },
       fee: {

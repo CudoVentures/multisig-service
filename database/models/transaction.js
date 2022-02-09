@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       chainId: DataTypes.STRING,
       memo: DataTypes.STRING,
       sequence: DataTypes.INTEGER,
-      msgs: DataTypes.JSONB,
+      msgs: DataTypes.ARRAY(DataTypes.JSONB),
       fee: DataTypes.JSONB,
       multisigAddress: DataTypes.STRING,
       hasSigned: DataTypes.ARRAY(DataTypes.STRING),
