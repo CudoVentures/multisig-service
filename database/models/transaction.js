@@ -28,17 +28,25 @@ module.exports = (sequelize, DataTypes) => {
       chainId: DataTypes.STRING,
       memo: DataTypes.STRING,
       sequence: DataTypes.INTEGER,
-      msgs: DataTypes.JSONB,
+      msgs: DataTypes.ARRAY(DataTypes.JSONB),
       fee: DataTypes.JSONB,
       multisigAddress: DataTypes.STRING,
       hasSigned: DataTypes.ARRAY(DataTypes.STRING),
-      status: DataTypes.ENUM(
-        TRANSACTION_STATUS.PENDING,
-        TRANSACTION_STATUS.SUCCESSFUL,
-        TRANSACTION_STATUS.REJECTED,
-        TRANSACTION_STATUS.SIGNED
-      ),
-      type: DataTypes.ENUM(TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE),
+      status: {
+        allowNull: false,
+        type: DataTypes.ENUM,
+        values: [
+          TRANSACTION_STATUS.PENDING,
+          TRANSACTION_STATUS.SUCCESSFUL,
+          TRANSACTION_STATUS.REJECTED,
+          TRANSACTION_STATUS.SIGNED
+        ]
+      },
+      type: {
+        allowNull: false,
+        type: DataTypes.ENUM,
+        values: [TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE]
+      },
       executionTime: DataTypes.DATE
     },
     {

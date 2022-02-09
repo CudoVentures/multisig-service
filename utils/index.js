@@ -4,8 +4,8 @@ module.exports.TRANSACTION_TYPES = {
 }
 
 module.exports.TRANSACTION_STATUS = {
-  PENDING: 'Pending',
-  SUCCESSFUL: 'Successful',
-  REJECTED: 'Rejected',
-  SIGNED: 'Signed'
+  PENDING: 'pending',
+  SUCCESSFUL: 'successful',
+  REJECTED: 'rejected',
+  SIGNED: 'signed'
 }

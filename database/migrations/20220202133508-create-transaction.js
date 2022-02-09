@@ -29,7 +29,7 @@ module.exports = {
         allowNull: false
       },
       msgs: {
-        type: Sequelize.JSONB,
+        type: Sequelize.ARRAY(Sequelize.JSONB),
         allowNull: false
       },
       fee: {
@@ -52,16 +52,18 @@ module.exports = {
       },
       status: {
         allowNull: false,
-        type: Sequelize.ENUM(
+        type: Sequelize.ENUM,
+        values: [
           TRANSACTION_STATUS.PENDING,
           TRANSACTION_STATUS.SUCCESSFUL,
           TRANSACTION_STATUS.REJECTED,
           TRANSACTION_STATUS.SIGNED
-        )
+        ]
       },
       type: {
         allowNull: false,
-        type: Sequelize.ENUM(TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE)
+        type: Sequelize.ENUM,
+        values: [TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE]
       },
       executionTime: {
         type: Sequelize.DATE

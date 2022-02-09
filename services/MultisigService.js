@@ -2,18 +2,25 @@ const { Multisig, Transaction } = require('../database/models')
 
 const getMultisig = async address => {
   try {
-    const { dataValues } = await Multisig.findOne({
+    const multisig = await Multisig.findOne({
       where: {
         address
       }
     })
+
+    if (!multisig) {
+      const notFoundError = new Error('Address not found')
+      notFoundError.statusCode = 404
+      throw notFoundError
+    }
+
     const transactions = await Transaction.findAll({
       where: { multisigAddress: address }
     })
 
     return {
-      ...dataValues,
-      pubkey: JSON.stringify(dataValues.pubkey)
+      ...multisig.dataValues,
+      pubkey: JSON.stringify(multisig.pubkey)
     }
   } catch (error) {
     console.log(error)
