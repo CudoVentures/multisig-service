@@ -19,10 +19,7 @@ const postMultisig = async (req, res, next) => {
   try {
     const data = req.body
 
-    const multisig = await MultisigService.createMultisig({
-      ...data,
-      pubkey: JSON.parse(data.pubkey)
-    })
+    const multisig = await MultisigService.createMultisig(data)
 
     return res.status(201).json(multisig)
   } catch (error) {
@@ -35,10 +32,7 @@ const putMultisig = async (req, res, next) => {
     const data = req.body
     const { address } = req.params
 
-    const multisig = await MultisigService.updateMultisig(address, {
-      ...data,
-      pubkey: JSON.parse(data.pubkey)
-    })
+    const multisig = await MultisigService.updateMultisig(address, data)
 
     return res.status(201).json(multisig)
   } catch (error) {

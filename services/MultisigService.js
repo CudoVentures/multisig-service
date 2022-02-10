@@ -10,7 +10,7 @@ const getMultisig = async address => {
 
     if (!multisig) {
       const notFoundError = new Error('Address not found')
-      notFoundError.statusCode = 404
+      notFoundError.status = 404
       throw notFoundError
     }
 
@@ -18,10 +18,7 @@ const getMultisig = async address => {
       where: { multisigAddress: address }
     })
 
-    return {
-      ...multisig.dataValues,
-      pubkey: JSON.stringify(multisig.pubkey)
-    }
+    return multisig.dataValues
   } catch (error) {
     console.log(error)
     throw error
@@ -31,10 +28,7 @@ const getMultisig = async address => {
 const createMultisig = async data => {
   try {
     const { dataValues } = await Multisig.create(data)
-    return {
-      ...dataValues,
-      pubkey: JSON.stringify(dataValues.pubkey)
-    }
+    return dataValues
   } catch (error) {
     console.log(error)
     throw error
@@ -53,10 +47,7 @@ const updateMultisig = async (address, data) => {
     })
     const { dataValues } = await updatedMultisig.save()
 
-    return {
-      ...dataValues,
-      pubkey: JSON.stringify(dataValues.pubkey)
-    }
+    return dataValues
   } catch (error) {
     console.log(error)
     throw error
