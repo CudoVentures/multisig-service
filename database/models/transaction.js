@@ -34,13 +34,17 @@ module.exports = (sequelize, DataTypes) => {
       hasSigned: DataTypes.ARRAY(DataTypes.STRING),
       status: {
         allowNull: false,
-        type: DataTypes.ENUM,
-        values: [
-          TRANSACTION_STATUS.PENDING,
-          TRANSACTION_STATUS.SUCCESSFUL,
-          TRANSACTION_STATUS.REJECTED,
-          TRANSACTION_STATUS.SIGNED
-        ]
+        type: DataTypes.STRING,
+        validate: {
+          isIn: [
+            [
+              TRANSACTION_STATUS.PENDING,
+              TRANSACTION_STATUS.SUCCESSFUL,
+              TRANSACTION_STATUS.REJECTED,
+              TRANSACTION_STATUS.SIGNED
+            ]
+          ]
+        }
       },
       type: {
         allowNull: false,
