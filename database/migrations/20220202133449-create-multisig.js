@@ -1,4 +1,6 @@
 'use strict'
+const { isCudosAddress } = require('../../utils')
+
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Multisigs', {
@@ -6,7 +8,14 @@ module.exports = {
         allowNull: false,
         primaryKey: true,
         type: Sequelize.STRING,
-        unique: true
+        unique: true,
+        validate: {
+          customValidation(val) {
+            if (!isCudosAddress(val)) {
+              throw new Error('Not a valid CUDOS address')
+            }
+          }
+        }
       },
       name: {
         type: Sequelize.STRING,
