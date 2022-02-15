@@ -12,6 +12,30 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      accountNumber: {
+        type: Sequelize.INTEGER,
+        unique: true
+      },
+      sequence: {
+        type: Sequelize.INTEGER
+      },
+      latestSequence: {
+        type: Sequelize.INTEGER
+      },
+      threshold: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        validate: {
+          max(val) {
+            if (parseInt(val) > this.owners.length) {
+              throw new Error(
+                'Threshold cannnot be higher than the amount of owners'
+              )
+            }
+          },
+          min: 1
+        }
+      },
       pubkey: {
         type: Sequelize.JSONB,
         allowNull: false
