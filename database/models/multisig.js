@@ -1,5 +1,6 @@
 'use strict'
 const { Model } = require('sequelize')
+const { isCudosAddress } = require('../../utils')
 
 module.exports = (sequelize, DataTypes) => {
   class Multisig extends Model {
@@ -22,7 +23,31 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         unique: true,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        validate: {
+          customValidation(val) {
+            if (!isCudosAddress(val)) {
+              throw new Error('Not a valid CUDOS address')
+            }
+          }
+        }
+      },
+      accountNumber: { type: DataTypes.INTEGER, unique: true },
+      sequence: DataTypes.INTEGER,
+      latestSequence: DataTypes.INTEGER,
+      threshold: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        validate: {
+          max(val) {
+            if (parseInt(val) > this.owners.length) {
+              throw new Error(
+                'Threshold cannnot be higher than the amount of owners'
+              )
+            }
+          },
+          min: 1
+        }
       },
       name: DataTypes.STRING,
       pubkey: DataTypes.JSONB,

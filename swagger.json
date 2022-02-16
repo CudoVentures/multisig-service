@@ -545,6 +545,25 @@
             "type": "string",
             "example": "My Wallet"
           },
+          "accountNumber": {
+            "type": "integer",
+            "example": 23544,
+            "nullable": true
+          },
+          "sequence": {
+            "type": "integer",
+            "example": 1,
+            "nullable": true
+          },
+          "latestSequence": {
+            "type": "integer",
+            "example": 1,
+            "nullable": true
+          },
+          "threshold": {
+            "type": "integer",
+            "example": 2
+          },
           "pubkey": {
             "type": "object",
             "example": {}
