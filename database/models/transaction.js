@@ -51,6 +51,11 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.ENUM,
         values: [TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE]
       },
+      isReject: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
       executionTime: DataTypes.DATE
     },
     {

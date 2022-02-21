@@ -69,6 +69,10 @@ module.exports = {
         type: Sequelize.ENUM,
         values: [TRANSACTION_TYPES.SEND, TRANSACTION_TYPES.RECEIVE]
       },
+      isReject: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false
+      },
       executionTime: {
         type: Sequelize.DATE
       },
