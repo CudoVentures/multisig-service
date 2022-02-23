@@ -5,13 +5,18 @@ const bodyParser = require('body-parser')
 const swaggerUi = require('swagger-ui-express')
 const OpenApiValidator = require('express-openapi-validator')
 const schema = require('./swagger.json')
+require('dotenv').config()
 
 // Set up the express app
 const app = express()
 
 // Log requests to the console.
 app.use(logger('dev'))
-app.use(cors())
+app.use(
+  cors({
+    origin: process.env.MULTISIG_CLIENT_URL
+  })
+)
 // Parse incoming requests data (https://github.com/expressjs/body-parser)
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
