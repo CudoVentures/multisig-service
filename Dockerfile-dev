@@ -1,0 +1,19 @@
+FROM node:16.13.2-alpine
+USER root
+
+# Set app directory
+WORKDIR /usr/mulisig-service
+
+# Installing dependencies
+COPY package*.json ./
+RUN npm ci
+RUN npm install -g sequelize-cli
+
+# Copying source files
+COPY . .
+
+# Running the app
+RUN sequelize db:create
+RUN npm run migrate
+
+CMD [ "npm", "run", "start:dev" ]
