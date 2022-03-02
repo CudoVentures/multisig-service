@@ -1,0 +1,16 @@
+version: '3.6'
+services:
+  web:
+    build:
+      dockerfile: Dockerfile-prod
+      context: .
+    command: npm run start
+    logging:
+      driver: "gcplogs"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - .:/usr/multisig-service/
+      - /usr/multisig-service/node_modules
+    ports:
+      - "8000:8000"
