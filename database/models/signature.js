@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       signature: DataTypes.STRING,
       address: DataTypes.STRING,
-      bodyBytes: DataTypes.STRING,
+      bodyBytes: DataTypes.STRING(500),
       transactionId: DataTypes.INTEGER
     },
     {

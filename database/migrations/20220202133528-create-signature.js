@@ -13,7 +13,7 @@ module.exports = {
         allowNull: false
       },
       bodyBytes: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING(500),
         allowNull: false
       },
       address: {
